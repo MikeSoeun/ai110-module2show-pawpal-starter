@@ -109,7 +109,15 @@ The tests in `tests/test_pawpal.py` cover:
 Sample test output:
 
 ```
-# Paste your python -m pytest output here
+=================================================================================== test session starts ====================================================================================
+platform win32 -- Python 3.13.7, pytest-9.1.1, pluggy-1.6.0
+rootdir: C:\Users\Miko\ai110-module2show-pawpal-starter
+plugins: anyio-4.15.1
+collected 11 items
+
+tests\test_pawpal.py ...........                                                                                                                                                      [100%]
+
+==================================================================================== 11 passed in 0.06s ====================================================================================
 ```
 
 **Confidence level:** ⭐⭐⭐⭐ (4/5). All core behaviors are tested and pass. Conflict detection only checks exact time matches, so overlapping durations (e.g. a 30-minute walk at 07:30 and a task at 07:45) are not caught yet.
@@ -123,4 +131,32 @@ Sample test output:
 5. **See conflict warnings.** If two unfinished tasks share the same time (e.g. Mochi's pill and Luna's feeding at 08:00), a yellow warning appears above the table suggesting you move one.
 6. **Complete a task.** Choose a task under **Mark a task complete** and click **Complete task**. Its status changes to ✅ done. If it was a daily or weekly task, a message confirms when the next one is scheduled.
 
-The CLI version of this workflow (`python main.py`) is shown in **Sample Output** above.
+**CLI demo:** the same scheduler behaviors (sorting, pet filter, conflict warning, daily recurrence) from `python main.py`:
+
+```
+======================================================================
+Today's Schedule for Jordan
+======================================================================
+  Sun 10/11 07:30  Mochi    Morning walk        30 min  [high] [daily] [todo]
+  Sun 10/11 08:00  Mochi    Heartworm pill       5 min  [medium] [once] [todo]
+  Sun 10/11 08:00  Luna     Feeding             10 min  [high] [daily] [todo]
+  Sun 10/11 12:00  Luna     Brush fur           15 min  [low] [weekly] [todo]
+  Sun 10/11 18:00  Mochi    Evening walk        30 min  [high] [daily] [todo]
+
+Conflict check:
+  WARNING: Conflict at 08:00: Mochi: Heartworm pill, Luna: Feeding
+
+Only Mochi's tasks:
+  Sun 10/11 07:30  Mochi    Morning walk        30 min  [high] [daily] [todo]
+  Sun 10/11 08:00  Mochi    Heartworm pill       5 min  [medium] [once] [todo]
+  Sun 10/11 18:00  Mochi    Evening walk        30 min  [high] [daily] [todo]
+
+Completed 'Morning walk'. Next one scheduled for 2026-10-12.
+
+Incomplete tasks (all pets, all days):
+  Sun 10/11 08:00  Mochi    Heartworm pill       5 min  [medium] [once] [todo]
+  Sun 10/11 08:00  Luna     Feeding             10 min  [high] [daily] [todo]
+  Sun 10/11 12:00  Luna     Brush fur           15 min  [low] [weekly] [todo]
+  Sun 10/11 18:00  Mochi    Evening walk        30 min  [high] [daily] [todo]
+  Mon 10/12 07:30  Mochi    Morning walk        30 min  [high] [daily] [todo]
+```
